@@ -31,44 +31,14 @@ class GestorDiagnostico:
         return respuesta_explicativa
 
     def procesar_consulta_audio(self, audio_id: str, datos_audio_vector = None) -> str:
-        """Flujo completo para audios enviados por el cliente (Clasificación Acústica + RAG + LLM)"""
-        # Si no se provee un vector de audio físico (por ejemplo, en pruebas rápidas)
-        if datos_audio_vector is None or len(datos_audio_vector) == 0:
-            # Diagnóstico acústico simulado
-            diagnostico_acustico = "Pastillas de freno cristalizadas o desgastadas (Fricción de metal)"
-            contexto_manual, _ = self.motor_rag.recuperar_contexto("pastillas de freno chillido disco")
-            
-            return (
-                f"🎙️ *Análisis Acústico Completado* 🛠️\n\n"
-                f"Nuestros algoritmos analizaron tu grabación de audio:\n"
-                f"- **Resultado**: Ruido Mecánico Detectado (Frecuencia Dominante Aguda ~5200 Hz).\n"
-                f"- **Diagnóstico de Falla (IA)**: {diagnostico_acustico}.\n\n"
-                f"Sugerencias de reparación de nuestro manual técnico:\n"
-                f"{contexto_manual}"
-            )
-            
-        # Si hay audio real: correr el analizador espectral FFT
-        tipo_entrada, diagnostico_fisico = self.procesador_audio.analizar_audio(datos_audio_vector)
-        
-        if tipo_entrada == "Silencio":
-            return "No logré escuchar el sonido del motor. Por favor, asegúrate de grabar cerca de la zona de la falla."
-            
-        elif tipo_entrada == "Ruido Mecánico":
-            # Buscar manual técnico asociado al ruido
-            contexto_manual, _ = self.motor_rag.recuperar_contexto(diagnostico_fisico)
-            
-            # Generar respuesta
-            return (
-                f"🎙️ *Diagnóstico Acústico en Tiempo Real* ⚙️\n\n"
-                f"El análisis espectral de Fourier identificó una falla acústica:\n"
-                f"- **Diagnóstico**: {diagnostico_fisico}.\n\n"
-                f"Procedimiento del manual técnico oficial del taller:\n"
-                f"{contexto_manual}"
-            )
-        else:
-            # Es Voz Humana -> En producción esto iría a un Speech-to-Text
-            # Para la demo, lo tratamos conversacionalmente
-            return "He detectado tu voz en el audio. Por favor, descríbeme el síntoma de tu auto por texto para poder ayudarte mejor."
+        """Flujo completo para audios (Inactivo por cumplimiento de protocolo ético)"""
+        return (
+            "🎙️ *Función de Audio Inactiva por Protocolo de Ética*\n\n"
+            "Estimado usuario, para cumplir estrictamente con los protocolos de consentimiento, "
+            "confidencialidad y protección de datos aprobados por el Comité de Ética de la universidad, "
+            "el procesamiento directo de mensajes de voz y audio está inactivo en la versión oficial del sistema.\n\n"
+            "Por favor, ✍️ *escriba los síntomas de su vehículo por mensaje de texto* para poder brindarle un diagnóstico automático asistido por Machine Learning y RAG."
+        )
 
     def generar_respuesta_conversacional(self, pregunta: str, diagnostico_ml: str, contexto_manual: str) -> str:
         """Envía el prompt aumentado con RAG y clasificación ML a la API de Gemini (o fallback local)"""
