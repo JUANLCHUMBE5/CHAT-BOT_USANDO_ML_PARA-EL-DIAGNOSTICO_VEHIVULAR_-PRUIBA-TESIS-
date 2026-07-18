@@ -29,40 +29,56 @@ Declara el análisis acústico de ruido de motor como una **Funcionalidad Protot
 
 ## 2. Inventario y Descripción de Archivos del Proyecto
 
-El proyecto está estructurado de la siguiente forma para mantener las buenas prácticas arquitectónicas:
+El proyecto está estructurado de la siguiente forma para mantener las buenas prácticas arquitectónicas y de limpieza de código:
 
 ### A. Módulos Principales de la Aplicación (`src/`)
 
-* **[main.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/main.py)**:
-  Punto de entrada principal. Configura FastAPI, importa las rutas de los webhooks y arranca el servidor web asíncrono con Uvicorn en el puerto 8000.
+* **[main.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/main.py)**:
+  Punto de entrada principal del backend. Configura FastAPI, importa las rutas modularizadas y arranca el servidor web asíncrono con Uvicorn en el puerto 8000.
   
-* **[src/interfaces/webhook.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/src/interfaces/webhook.py)**:
-  Implementa los endpoints de la API. Expone el método `GET /webhook` (verificación de token de Meta) y `POST /webhook` (recepción de payloads JSON de WhatsApp). Se encarga de responder a Meta y enviar las respuestas HTTP.
+* **[src/interfaces/api/v1/router.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/interfaces/api/v1/router.py)**:
+  Agrupa y centraliza todas las rutas modulares de la versión 1 de la API (`api_router`).
   
-* **[src/core/gestor_diagnostico.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/src/core/gestor_diagnostico.py)**:
-  El cerebro del sistema (Orquestador). Coordina la lógica de negocio: recibe el mensaje del cliente, decide si es audio o texto, consulta el clasificador de Machine Learning, extrae el manual del RAG y genera la respuesta conversacional a través del LLM.
+* **[src/interfaces/api/v1/endpoints/webhook.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/interfaces/api/v1/endpoints/webhook.py)**:
+  Implementa los endpoints de webhook de Meta expuestos bajo el prefijo `/api/v1/webhook` para integrar las notas de texto y audio de WhatsApp.
   
-* **[src/core/audio_processor.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/src/core/audio_processor.py)**:
-  Contiene las funciones matemáticas para procesamiento de audio. Normaliza la amplitud, calcula la energía RMS para detectar silencio y realiza la Transformada Rápida de Fourier (FFT) para identificar si la señal física es de rango agudo (chillido de frenos o alternador) o de rango vocal.
+* **[src/interfaces/api/v1/endpoints/diagnostico.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/interfaces/api/v1/endpoints/diagnostico.py)**:
+  Nuevo endpoint REST genérico `POST /api/v1/diagnostico/analizar` que permite a clientes de terceros (como dashboards web o apps) consultar diagnósticos directamente.
   
-* **[src/infrastructure/modelo_ml.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/src/infrastructure/modelo_ml.py)**:
-  Carga los modelos entrenados en memoria de forma segura. Utiliza `joblib` para cargar el vectorizador y el clasificador de texto, aislando la lógica de inferencia del resto de la aplicación.
+* **[src/core/gestor_diagnostico.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/core/gestor_diagnostico.py)**:
+  El orquestador de la lógica del chatbot. Vincula el clasificador de Machine Learning, la extracción del manual en RAG y la formulación conversacional del LLM.
   
-* **[src/infrastructure/motor_rag.py](file:///c:/Users/leonc/OneDrive/Desktop/CHAT_BOT_MACHINLEARNING/src/infrastructure/motor_rag.py)**:
-  Indexa dinámicamente el manual técnico. Lee el archivo `manual_procedimientos.txt`, separa las secciones técnicas y realiza una búsqueda de similitud de coseno vectorial (RAG) para recuperar el párrafo técnico exacto a partir del síntoma.
+* **[src/core/audio_processor.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/core/audio_processor.py)**:
+  Procesa y analiza las señales de audio (Transformada de Fourier - FFT, cálculo de energía RMS y normalizaciones de volumen).
+  
+* **[src/infrastructure/modelo_ml.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/infrastructure/modelo_ml.py)**:
+  Encapsula el cargado y ejecución de los modelos de Machine Learning guardados en la carpeta `models/`.
+  
+* **[src/infrastructure/motor_rag.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/src/infrastructure/motor_rag.py)**:
+  Indexa y busca procedimientos mecánicos del taller (`manual_procedimientos.txt`) mediante similitud de coseno vectorial sobre pesos TF-IDF.
 
 ---
 
 ### B. Módulos de Entrenamiento y Datos (`training/` y `data/`)
 
-* **`generar_dataset.py`**:
-  Crea sintéticamente la data estructurada de entrenamiento inicial escribiendo frases y síntomas comunes de usuarios de taller asociados a categorías de fallas mecánicas.
+* **[training/generar_dataset.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/training/generar_dataset.py)**:
+  Genera el dataset sintético inicial de síntomas vehiculares y lo guarda en `data/dataset_sintomas.csv`.
   
-* **`entrenar_modelo.py`**:
-  Toma la data sintetizada, entrena el modelo clasificador multiclase (generalmente usando un enfoque TF-IDF y un algoritmo supervisado) y guarda los binarios serializados (`modelo_diagnostico.pkl` y `vectorizador_tfidf.pkl`).
+* **[training/entrenar_modelo.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/training/entrenar_modelo.py)**:
+  Entrena el clasificador `RandomForestClassifier` y guarda los binarios resultantes (`modelo_diagnostico.pkl` y `vectorizador_tfidf.pkl`) en la carpeta `models/`.
   
-* **`analizar_resultados_tesis.py`**:
-  Contiene el código estadístico y las utilidades para medir las métricas de exactitud, precisión, F1-score y generar las fichas de pre-test y post-test del diseño experimental.
+* **[training/generar_tracker_excel.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/training/generar_tracker_excel.py)**:
+  Simula los 60 registros del pre-test y post-test del diseño experimental guardándolos en `data/tracker_diagnosticos.csv`.
+  
+* **[training/analizar_resultados_tesis.py](file:///C:/Users/Juan/.gemini/antigravity-ide/scratch/chatbot-diagnostico-vehicular/training/analizar_resultados_tesis.py)**:
+  Script estadístico que procesa las fichas del capítulo IV aplicando t de Student y Wilcoxon sobre la simulación de casos.
+
+---
+
+### C. Directorio Experimental (`pruebas/`)
+
+* **`pruebas/`**:
+  Contiene los prototipos de consola iniciales y libretas Jupyter (`probar_*.py`, `chatbot_voz_y_ruido.py`, `notebook.ipynb`) que sirvieron como bocetos durante el diseño del sistema pero que están fuera del código de producción de la aplicación.
 
 ---
 

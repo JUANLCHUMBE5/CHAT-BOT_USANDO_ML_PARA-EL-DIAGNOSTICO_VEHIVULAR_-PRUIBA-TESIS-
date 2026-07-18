@@ -7,11 +7,11 @@ from sklearn.metrics import classification_report, accuracy_score
 import os
 
 # 1. Cargar el dataset en español
-if not os.path.exists("dataset_sintomas.csv"):
-    print("Error: No se encontró 'dataset_sintomas.csv'. Ejecuta primero 'generar_dataset.py'.")
+if not os.path.exists("data/dataset_sintomas.csv"):
+    print("Error: No se encontró 'data/dataset_sintomas.csv'. Ejecuta primero 'generar_dataset.py'.")
     exit()
 
-df = pd.read_csv("dataset_sintomas.csv", encoding="utf-8")
+df = pd.read_csv("data/dataset_sintomas.csv", encoding="utf-8")
 
 # Mostrar información básica del dataset
 print(f"Cargadas {len(df)} filas del dataset de síntomas.")
@@ -38,7 +38,8 @@ print(f"Exactitud del entrenamiento: {exactitud * 100:.2f}%")
 
 # 4. Guardar el modelo y el vectorizador
 # Esto nos permite cargar el "cerebro" entrenado en el script del Chatbot o la API sin re-entrenar.
-joblib.dump(modelo, 'modelo_diagnostico.pkl')
-joblib.dump(vectorizador, 'vectorizador_tfidf.pkl')
+os.makedirs("models", exist_ok=True)
+joblib.dump(modelo, 'models/modelo_diagnostico.pkl')
+joblib.dump(vectorizador, 'models/vectorizador_tfidf.pkl')
 
-print("¡Modelo 'modelo_diagnostico.pkl' y Vectorizador 'vectorizador_tfidf.pkl' guardados con éxito!")
+print("¡Modelo 'models/modelo_diagnostico.pkl' y Vectorizador 'models/vectorizador_tfidf.pkl' guardados con éxito!")

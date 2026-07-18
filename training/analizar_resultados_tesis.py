@@ -3,12 +3,12 @@ import numpy as np
 from scipy import stats
 import os
 
-if not os.path.exists("tracker_diagnosticos.csv"):
-    print("Error: No se encontro 'tracker_diagnosticos.csv'. Ejecuta primero 'generar_tracker_excel.py'")
+if not os.path.exists("data/tracker_diagnosticos.csv"):
+    print("Error: No se encontro 'data/tracker_diagnosticos.csv'. Ejecuta primero 'generar_tracker_excel.py'")
     exit()
 
 # Cargar los datos
-df = pd.read_csv("tracker_diagnosticos.csv")
+df = pd.read_csv("data/tracker_diagnosticos.csv")
 
 # Separar los datos en Pre-test (sin chatbot) y Post-test (con chatbot)
 pre_test = df[df['fase'] == 'Pre-test']

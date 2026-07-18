@@ -4,7 +4,7 @@ import joblib
 class ModeloML:
     """Clase encargada de encapsular el modelo de clasificación de texto de Machine Learning."""
     
-    def __init__(self, modelo_path: str = "modelo_diagnostico.pkl", vectorizador_path: str = "vectorizador_tfidf.pkl"):
+    def __init__(self, modelo_path: str = "models/modelo_diagnostico.pkl", vectorizador_path: str = "models/vectorizador_tfidf.pkl"):
         self.modelo_path = modelo_path
         self.vectorizador_path = vectorizador_path
         self.modelo = None

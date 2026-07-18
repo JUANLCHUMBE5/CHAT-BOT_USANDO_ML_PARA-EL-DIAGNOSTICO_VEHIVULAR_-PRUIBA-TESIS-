@@ -60,10 +60,12 @@ df = pd.DataFrame(registros)
 df['prediccion_correcta'] = (df['falla_real'] == df['chatbot_prediccion']).astype(int)
 
 # Guardar a archivo CSV para abrir en Excel
-df.to_csv("tracker_diagnosticos.csv", index=False, encoding="utf-8")
+import os
+os.makedirs("data", exist_ok=True)
+df.to_csv("data/tracker_diagnosticos.csv", index=False, encoding="utf-8")
 
 print("=" * 70)
-print("¡Archivo 'tracker_diagnosticos.csv' generado exitosamente!")
+print("¡Archivo 'data/tracker_diagnosticos.csv' generado exitosamente!")
 print("Contiene la simulación de tus 60 casos (30 Pre-test y 30 Post-test).")
 print("Puedes abrir este archivo en Excel para ver cómo estructurar tus datos reales.")
 print("=" * 70)

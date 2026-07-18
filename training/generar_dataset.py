@@ -47,6 +47,8 @@ datos = [
 # Crear un DataFrame de Pandas
 df = pd.DataFrame(datos)
 
-# Guardar a un archivo CSV en la misma carpeta
-df.to_csv("dataset_sintomas.csv", index=False, encoding="utf-8")
-print("¡Dataset 'dataset_sintomas.csv' generado exitosamente con 30 ejemplos traducidos y adaptados!")
+# Guardar a un archivo CSV en la carpeta data
+import os
+os.makedirs("data", exist_ok=True)
+df.to_csv("data/dataset_sintomas.csv", index=False, encoding="utf-8")
+print("¡Dataset 'data/dataset_sintomas.csv' generado exitosamente con 30 ejemplos traducidos y adaptados!")
