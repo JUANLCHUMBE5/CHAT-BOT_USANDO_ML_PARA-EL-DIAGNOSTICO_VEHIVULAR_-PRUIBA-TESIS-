@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request, Query, HTTPException
 from fastapi.responses import PlainTextResponse, JSONResponse
 from src.core.gestor_diagnostico import GestorDiagnostico
 
-# Crear enrutador FastAPI
+# Crear enrutador FastAPI para Webhook
 router = APIRouter()
 
 # Configuración desde variables de entorno
@@ -15,7 +15,7 @@ VERIFY_TOKEN = os.getenv("VERIFY_TOKEN", "MI_TOKEN_DE_VERIFICACION_SEC_123")
 # Instanciar el orquestador core de diagnóstico
 gestor = GestorDiagnostico()
 
-@router.get("/webhook")
+@router.get("")
 def verificar_webhook(
     mode: str = Query(None, alias="hub.mode"),
     token: str = Query(None, alias="hub.verify_token"),
@@ -27,7 +27,7 @@ def verificar_webhook(
         return PlainTextResponse(content=challenge)
     raise HTTPException(status_code=403, detail="Verify token incorrecto.")
 
-@router.post("/webhook")
+@router.post("")
 async def recibir_mensaje(request: Request):
     """Punto de entrada principal para recibir mensajes y audios desde WhatsApp."""
     payload = await request.json()
@@ -43,7 +43,7 @@ async def recibir_mensaje(request: Request):
             remitente = msg["from"]
             tipo_mensaje = msg["type"]
             
-            print(f"📥 [Webhook API] Nuevo mensaje de {remitente} (Tipo: {tipo_mensaje})")
+            print(f"📥 [Webhook API v1] Nuevo mensaje de {remitente} (Tipo: {tipo_mensaje})")
             
             # 1. Procesar según tipo de mensaje
             if tipo_mensaje == "text":
@@ -69,7 +69,7 @@ async def recibir_mensaje(request: Request):
     return JSONResponse(content={"status": "procesado"})
 
 def enviar_mensaje_whatsapp(numero_destino: str, texto: str):
-    """Envía la respuesta redactada de vuelta al celular del cliente usando la API de Meta."""
+    """Realiza la llamada HTTP POST a la Graph API de Meta para enviar el mensaje."""
     url = f"https://graph.facebook.com/v18.0/{TELEFONO_ID}/messages"
     headers = {
         "Authorization": f"Bearer {TOKEN_WHATSAPP}",

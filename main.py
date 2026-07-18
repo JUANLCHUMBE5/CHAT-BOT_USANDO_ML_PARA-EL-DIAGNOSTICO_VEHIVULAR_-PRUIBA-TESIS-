@@ -1,25 +1,25 @@
 import os
 from fastapi import FastAPI
 import uvicorn
-from src.interfaces.webhook import router as whatsapp_router
+from src.interfaces.api.v1.router import api_router
 
-# Inicializar aplicación FastAPI
+# Inicializar aplicación FastAPI con soporte modular y versionamiento
 app = FastAPI(
-    title="Chatbot Vehicular - Arquitectura en Capas",
-    description="Implementación oficial de la arquitectura híbrida (ML + RAG + LLM) estructurada en capas para sustentación de tesis.",
+    title="Chatbot Vehicular - Arquitectura Modular en Capas",
+    description="Implementación de la arquitectura híbrida modular (ML + RAG + LLM) estructurada por capas y rutas para sustentación de tesis.",
     version="1.0.0"
 )
 
-# Incluir las rutas de WhatsApp
-app.include_router(whatsapp_router)
+# Incluir las rutas modulares versionadas bajo /api/v1
+app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 def read_root():
     return {
         "estado": "online",
-        "sistema": "Chatbot de Diagnóstico Vehicular Híbrido",
+        "sistema": "Chatbot de Diagnóstico Vehicular Híbrido Modular",
         "taller": "Taller Mecánico en Carabayllo",
-        "documentacion": "Módulos de la arquitectura cargados correctamente: Presentación, Aplicación, Infraestructura."
+        "documentacion": "Módulos de la arquitectura modular cargados correctamente: Presentación (api/v1), Aplicación, Infraestructura."
     }
 
 if __name__ == "__main__":
@@ -28,3 +28,4 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     print(f"🚀 Iniciando servidor del Chatbot Vehicular en el puerto {port}...")
     uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+
