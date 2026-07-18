@@ -55,3 +55,38 @@ Tu modelo supervisado aprende relacionando un **Texto de Entrada** con una **Cla
    python training/entrenar_modelo.py
    ```
    El script leerá tus nuevos datos, entrenará el clasificador Random Forest y exportará los nuevos archivos binarios actualizados en `models/`.
+
+---
+
+## 4. Guía de Búsqueda y Evaluación en Kaggle y UCI
+
+### A. Términos de Búsqueda Clave (Buscar en Inglés)
+Dado que la mayoría de repositorios científicos están indexados en inglés, debes realizar tus búsquedas usando frases específicas. Aquí tienes los mejores términos de búsqueda:
+
+*   **Para Clasificación de Síntomas y Fallas**:
+    *   `"car fault classification dataset"`
+    *   `"vehicle symptom diagnostic data"`
+    *   `"car failure diagnosis text dataset"`
+    *   `"automotive repair description dataset"`
+*   **Para Manuales Técnicos (RAG)**:
+    *   `"car owner manual text"`
+    *   `"automotive repair manual corpus"`
+*   **Para Códigos OBD-II y DTC**:
+    *   `"OBD2 trouble codes descriptions"`
+    *   `"DTC fault codes dataset"`
+
+### B. Criterios de Evaluación: ¿Cómo saber si un Dataset te sirve?
+No todos los datasets vehiculares te servirán para este proyecto. Debes evaluar si cumplen con las siguientes condiciones técnicas:
+
+1.  **¿Es de tipo NLP (Procesamiento de Lenguaje Natural)?**
+    *   ❌ **NO SIRVE**: Datasets con datos numéricos de sensores (ej: logs con valores de `Engine RPM`, `O2 Voltages`, `Mass Airflow Rate`). Tu chatbot es conversacional y no está conectado físicamente a los sensores del vehículo.
+    *   ✅ **SÍ SIRVE**: Datasets que contengan **texto descriptivo** (ej: *"pedal vibration during braking"*) y una columna de **falla o solución** (ej: *"warped brake rotors"*).
+2.  **¿El formato es Tabular Simple?**
+    *   El dataset debe venir en formato **CSV o Excel (`.xlsx`)** para que lo puedas manipular fácilmente con la librería Pandas en Python.
+3.  **¿Qué hacer con el Idioma (Inglés a Español)?**
+    *   Casi todos los datasets públicos vendrán en inglés. Para usarlos en tu tesis:
+        1. Descarga el CSV.
+        2. Selecciona las columnas importantes (`sintoma` y `falla`).
+        3. Tradúcelas al español de Lima Norte (agregando jergas locales) usando traductores automáticos o un script básico en Python para traducirlas por lotes, garantizando que el chatbot entienda expresiones peruanas.
+4.  **Tamaño del Dataset**:
+    *   Para un clasificador `RandomForestClassifier` en una tesis, busca datasets que tengan entre **100 y 1,000 registros**. Menos de 50 registros es muy pequeño para generalizar bien, y más de 10,000 registros podría requerir más memoria y procesamiento innecesario para tu demo en WhatsApp.
