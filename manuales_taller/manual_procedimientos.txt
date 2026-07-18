@@ -1,0 +1,34 @@
+=== PROCEDIMIENTO: CAMBIO DE BUJÍAS (FALLAS DE MOTOR / CASCABELEO) ===
+Cuando el motor presente cascabeleo, pérdida de potencia o tiemble al estar detenido, se debe realizar el cambio de bujías.
+Instrucciones paso a paso:
+1. Apague el vehículo y espere a que el motor esté completamente frío.
+2. Retire la cubierta protectora del motor.
+3. Desconecte las bobinas de encendido retirando los pernos de 10mm.
+4. Extraiga las bujías viejas utilizando un dado para bujías de 5/8 pulgadas.
+5. Verifique la calibración de las nuevas bujías (generalmente a 0.040 pulgadas).
+6. Instale las nuevas bujías ajustándolas a mano primero para no dañar la rosca, y luego ajuste con el torquímetro.
+7. Vuelva a colocar las bobinas de encendido y conecte los cables.
+Consejo adicional: Se recomienda usar gasolina de 95 octanos para evitar que vuelva a cascabelear si las bujías están nuevas.
+
+=== PROCEDIMIENTO: REEMPLAZO DE PASTILLAS DE FRENO (CHILLIDO AL FRENAR) ===
+Si el vehículo emite un chillido metálico agudo al presionar el pedal de freno, es indicador de que las pastillas de freno llegaron a su límite de vida útil.
+Instrucciones paso a paso:
+1. Levante el auto con la gata hidráulica y retire las ruedas delanteras.
+2. Afloje los pernos del cáliper de freno usando una llave de 12mm o 14mm.
+3. Desmonte el cáliper y asegúrelo con un alambre para no dañar la manguera del líquido de frenos.
+4. Retire las pastillas de freno desgastadas de los soportes.
+5. Utilice una prensa de sargento para retroceder el pistón del cáliper de freno.
+6. Coloque las nuevas pastillas de freno aplicando un poco de grasa antirruido en la parte posterior metálica (nunca en la zona de contacto con el disco).
+7. Monte el cáliper, ajuste los pernos y vuelva a colocar la rueda.
+8. Bombee el pedal de freno 5 veces antes de avanzar el auto.
+
+=== PROCEDIMIENTO: PURGA Y FUGA DE LÍQUIDO DE FRENOS (PEDAL ESPONJOSO) ===
+Cuando el pedal de freno se siente demasiado blando (esponjoso) o se va hasta el fondo, existe aire en las cañerías o una fuga de líquido de frenos en el sistema.
+Instrucciones paso a paso:
+1. Coloque el vehículo en una superficie plana y ubique el depósito de líquido de frenos bajo el capó.
+2. Si el nivel está bajo, rellene con líquido de frenos recomendado (DOT 3 o DOT 4).
+3. Inspeccione visualmente cada rueda buscando manchas de aceite líquido (fugas en los cilindros o mangueras).
+4. Para purgar el aire: comience por la rueda más alejada de la bomba de frenos (rueda trasera derecha).
+5. Pida a un asistente que bombee el pedal de freno y lo mantenga presionado.
+6. Abra la válvula de purga de la rueda con una llave de 8mm hasta que salga el aire y vuelva a cerrarla.
+7. Repita el proceso en las demás ruedas (trasera izquierda, delantera derecha, delantera izquierda) hasta que el pedal recupere firmeza.

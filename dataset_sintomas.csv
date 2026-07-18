@@ -1,0 +1,31 @@
+sintoma,falla
+siento un chillido feo al frenar el carro,Pastillas de freno desgastadas
+el carro chilla cuando piso el freno,Pastillas de freno desgastadas
+suena como metal chocando cuando freno,Pastillas de freno desgastadas / discos dañados
+el pedal de freno se va hasta el fondo y se siente esponjoso,Fuga de liquido de frenos o aire en el sistema
+el freno esta muy largo y no frena bien,Fuga de liquido de frenos o aire en el sistema
+tengo que pisar muy fuerte el freno para que pare,Problema en el servo freno (booster) o pastillas cristalizadas
+el pedal de freno esta duro y no frena casi nada,Fallo en el servo freno (booster)
+el carro se jala para un lado cuando freno,Calaper de freno atascado o desgaste desigual
+el motor cascabelea cuando subo una cuesta o acelero fuerte,Bujias desgastadas o gasolina de bajo octanaje (preignicion)
+siento un cascabeleo en el motor al acelerar,Bujias desgastadas o gasolina de bajo octanaje (preignicion)
+el carro no arranca solo hace un click click al girar la llave,Bateria descargada o arrancador defectuoso
+no prende el auto no da arranque y las luces estan bajas,Bateria dañada o descargada
+el carro demora en arrancar en las mañanas cuando esta frio,Bujias desgastadas o bobinas con falla de corriente
+el motor tiembla mucho cuando esta parado en el semaforo,Soportes de motor rotos o falla de cilindro (misfire)
+el auto tiembla en ralenti o cuando esta encendido pero quieto,Soportes de motor rotos o inyectores sucios
+el motor se apaga de la nada cuando bajo la velocidad,Valvula IAC sucia u obstruida (control de minimo)
+el timon tiembla bastante cuando voy a mas de 80 kilometros por hora,"Llantas desalineadas, desbalanceadas o deformadas"
+vibra la direccion del carro a alta velocidad,"Llantas desalineadas, desbalanceadas o deformadas"
+suena un golpe seco en la llanta cuando paso por un bache o rompemuelles,Amortiguadores reventados o bujes de suspension gastados
+suena un clac clac fuerte al girar todo el timon para doblar,Juntas homocineticas (palieres) dañadas
+cuando doblo la esquina suena un crujido en la direccion,Juntas homocineticas o terminales de direccion desgastados
+el carro se va hacia la derecha si suelto el timon,Falta de alineacion y balanceo en el eje delantero
+el carro se aguanta o pierde fuerza cuando acelero,Filtro de combustible obstruido o inyectores sucios
+siento que el auto pierde potencia y no responde al acelerador,Filtro de combustible obstruido o inyectores sucios
+el carro esta consumiendo demasiada gasolina ultimamente,Sensor de oxigeno defectuoso o bujias en mal estado
+huele mucho a gasolina dentro del carro y bota humo,Fuga en la linea de combustible o inyectores goteando
+esta botando humo negro por el tubo de escape,Mezcla rica (demasiado combustible / falla de sensor de oxigeno)
+sale humo azul con olor a aceite quemado por el escape,El motor esta consumiendo aceite (anillos de piston o retenes de valvula gastados)
+sale bastante humo blanco espeso por el tubo de escape,Soplo de empaque de culata (ingreso de refrigerante al motor)
+el tubo de escape suena muy fuerte como si estuviera roto,Tubo de escape roto o silenciador dañado
