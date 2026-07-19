@@ -77,3 +77,57 @@ else:
     print("No hay diferencia estadisticamente significativa entre el Pre-test y el Post-test (P-Valor >= 0.05).")
 
 print("=" * 80)
+
+# --- 5. GENERACION DE GRAFICAS ACADEMICAS PARA LA TESIS ---
+try:
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    
+    # Crear carpeta para las gráficas si no existe
+    os.makedirs("documentacion/graficas", exist_ok=True)
+    
+    # Configurar estilo
+    sns.set_theme(style="whitegrid")
+    plt.rcParams.update({'font.size': 11})
+    
+    # Gráfica 1: Comparación de Tiempos (Boxplot)
+    plt.figure(figsize=(7, 5))
+    sns.boxplot(x='fase', y='tiempo_diagnostico_minutos', data=df, palette='Set2', width=0.5)
+    plt.title('Eficiencia del Diagnóstico: Tiempos Pre-test vs Post-test', pad=15)
+    plt.xlabel('Fase de Evaluación')
+    plt.ylabel('Tiempo de Diagnóstico (Minutos)')
+    plt.savefig('documentacion/graficas/comparacion_tiempos_diagnostico.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Gráfica 2: Precisión y Completitud (Barras agrupadas)
+    metricas = {
+        'Fase': ['Pre-test', 'Post-test', 'Pre-test', 'Post-test'],
+        'Métrica': ['Precisión del Diagnóstico', 'Precisión del Diagnóstico', 'Completitud de Ficha', 'Completitud de Ficha'],
+        'Porcentaje (%)': [porcentaje_pre, porcentaje_post, pct_completo_pre, pct_completo_post]
+    }
+    df_metricas = pd.DataFrame(metricas)
+    
+    plt.figure(figsize=(8, 5))
+    ax = sns.barplot(x='Métrica', y='Porcentaje (%)', hue='Fase', data=df_metricas, palette='Set1')
+    plt.title('Impacto en la Calidad del Diagnóstico Vehicular', pad=15)
+    plt.ylabel('Porcentaje (%)')
+    plt.ylim(0, 115)
+    
+    # Agregar etiquetas sobre las barras
+    for p in ax.patches:
+        height = p.get_height()
+        if height > 0:
+            ax.annotate(f'{height:.1f}%',
+                        (p.get_x() + p.get_width() / 2., height),
+                        ha='center', va='center',
+                        xytext=(0, 8),
+                        textcoords='offset points',
+                        fontweight='bold')
+            
+    plt.savefig('documentacion/graficas/comparacion_calidad_diagnostico.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    print("\n[Graficador] Graficas de caja y barra exportadas con exito en: 'documentacion/graficas/'")
+except Exception as e:
+    print(f"\n[Error] Error al generar las graficas: {e}")
+
