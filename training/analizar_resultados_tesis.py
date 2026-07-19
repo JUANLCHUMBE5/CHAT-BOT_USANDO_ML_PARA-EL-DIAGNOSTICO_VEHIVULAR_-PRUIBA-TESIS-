@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from scipy import stats
 import os
 
 if not os.path.exists("data/tracker_diagnosticos.csv"):
@@ -57,24 +56,6 @@ print("-" * 65)
 print(f"Fase Pre-test:  Tiempo Total = {tiempo_total_pre} min | Promedio = {tiempo_prom_pre:.2f} min por auto")
 print(f"Fase Post-test: Tiempo Total = {tiempo_total_post} min | Promedio = {tiempo_prom_post:.2f} min por auto")
 print(f"--> Reduccion de tiempo de atencion: -{tiempo_prom_pre - tiempo_prom_post:.2f} minutos por vehiculo.")
-
-# --- 4. CONTRASTACION DE HIPOTESIS ESTADISTICA ---
-# Comparamos la distribucion de tiempos de diagnostico antes y después.
-t_stat, p_value = stats.ttest_ind(pre_test['tiempo_diagnostico_minutos'], post_test['tiempo_diagnostico_minutos'])
-
-print("\nCONTRASTACION DE HIPOTESIS ESTADISTICA (T-STUDENT)")
-print("-" * 65)
-print(f"Valor estadistico T: {t_stat:.4f}")
-print(f"Valor P (P-Value):   {p_value:.8f}")
-
-# Nivel de significancia alfa = 0.05
-if p_value < 0.05:
-    print("\nCONCLUSION CIENTIFICA:")
-    print("Dado que el P-Valor es menor que 0.05, se RECHAZA la hipotesis nula y se ACEPTA la hipotesis general:")
-    print("'El chatbot utilizando Machine Learning influye y mejora significativamente el diagnostico vehicular en los talleres mecanicos de Carabayllo, 2026.'")
-else:
-    print("\nCONCLUSION CIENTIFICA:")
-    print("No hay diferencia estadisticamente significativa entre el Pre-test y el Post-test (P-Valor >= 0.05).")
 
 print("=" * 80)
 
