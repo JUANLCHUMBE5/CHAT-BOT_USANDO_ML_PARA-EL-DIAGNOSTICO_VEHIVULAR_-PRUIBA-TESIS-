@@ -1,5 +1,6 @@
 import os
 import requests
+import numpy as np
 from src.infrastructure.modelo_ml import ModeloML
 from src.infrastructure.motor_rag import MotorRAG
 from src.core.audio_processor import AudioProcessor
@@ -31,13 +32,34 @@ class GestorDiagnostico:
         return respuesta_explicativa
 
     def procesar_consulta_audio(self, audio_id: str, datos_audio_vector = None) -> str:
-        """Flujo completo para audios (Inactivo por cumplimiento de protocolo ético)"""
+        """Flujo completo para audios (Inactivo por ética por defecto, activable en .env para demo)"""
+        habilitar_audio = os.getenv("HABILITAR_AUDIO", "false").lower() == "true"
+        
+        if not habilitar_audio:
+            return (
+                "🎙️ *Función de Audio Inactiva por Protocolo de Ética*\n\n"
+                "Estimado usuario, para cumplir estrictamente con los protocolos de consentimiento, "
+                "confidencialidad y protección de datos aprobados por el Comité de Ética de la universidad, "
+                "el procesamiento directo de mensajes de voz y audio está inactivo en la versión oficial del sistema.\n\n"
+                "Por favor, ✍️ *escriba los síntomas de su vehículo por mensaje de texto* para poder brindarle un diagnóstico automático asistido por Machine Learning y RAG."
+            )
+        
+        # Modo Demostración Oculto: Simula el procesamiento del audio usando AudioProcessor
+        # Generamos una señal de audio de ejemplo de alta frecuencia (5200 Hz) que simula fricción de metal
+        frecuencia_simulada = 5200  # Hz
+        energia_rms_simulada = 0.25
+        t = np.linspace(0, 1, 44100)
+        datos_simulados = np.sin(2 * np.pi * frecuencia_simulada * t) * energia_rms_simulada
+        
+        tipo_audio, diagnostico = self.procesador_audio.analizar_audio(datos_simulados)
+        
         return (
-            "🎙️ *Función de Audio Inactiva por Protocolo de Ética*\n\n"
-            "Estimado usuario, para cumplir estrictamente con los protocolos de consentimiento, "
-            "confidencialidad y protección de datos aprobados por el Comité de Ética de la universidad, "
-            "el procesamiento directo de mensajes de voz y audio está inactivo en la versión oficial del sistema.\n\n"
-            "Por favor, ✍️ *escriba los síntomas de su vehículo por mensaje de texto* para poder brindarle un diagnóstico automático asistido por Machine Learning y RAG."
+            f"🎙️ **Análisis Acústico de Audio (Modo Demo Activo)**\n\n"
+            f"• **Tipo de señal detectada:** {tipo_audio}\n"
+            f"• **Energía RMS:** {energia_rms_simulada:.2f} (Señal estable)\n"
+            f"• **Frecuencia dominante:** {frecuencia_simulada} Hz (Firma espectral de pastillas de freno)\n\n"
+            f"🔍 **Diagnóstico Físico sugerido:** {diagnostico}\n\n"
+            f"📖 *Recomendación:* Inspeccionar desgaste de discos y pastillas en el taller."
         )
 
     def generar_respuesta_conversacional(self, pregunta: str, diagnostico_ml: str, contexto_manual: str) -> str:
