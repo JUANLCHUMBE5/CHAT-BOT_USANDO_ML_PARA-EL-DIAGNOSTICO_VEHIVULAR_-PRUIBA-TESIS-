@@ -132,18 +132,18 @@ def generar_diagnostico_llm(pregunta: str, diagnostico_ml: str, contexto_manual:
     
     if "No se encontró" in contexto_manual:
         return (
-            f"¡Hola! 🚗 Soy CarBot, el asistente inteligente de tu taller mecánico. "
-            f"Basado en tu descripción, nuestro modelo de Machine Learning sugiere que la falla podría estar relacionada con: **{diagnostico_ml}**.\n\n"
-            f"Lamentablemente, no encontré un procedimiento detallado paso a paso en nuestros manuales para esta consulta específica. "
-            f"Te sugiero que nos traigas el auto al taller en Carabayllo para hacer una inspección visual directa. ¿Te gustaría agendar una cita?"
+            f"🛠️ **CarBot - Asistente de Taller**\n\n"
+            f"El modelo de Machine Learning sugiere que la falla se asocia con: **{diagnostico_ml}**.\n\n"
+            f"⚠️ *Nota:* No se encontró un procedimiento específico en el manual de taller para esta consulta. "
+            f"Te sugiero revisar componentes asociados o realizar pruebas visuales directas en el vehículo."
         )
         
     return (
-        f"¡Hola! 🛠️ Soy CarBot, tu asistente mecánico digital. "
-        f"Analizando tu mensaje, nuestro sistema inteligente ha identificado una posible falla de: **{diagnostico_ml}**.\n\n"
-        f"De acuerdo con nuestro manual técnico oficial de taller, aquí tienes las instrucciones de lo que debemos realizar:\n"
-        f"{contexto_manual}\n"
-        f"¿Deseas que agendemos una cita en el taller de Carabayllo para que nuestros mecánicos realicen este procedimiento por ti?"
+        f"🛠️ **CarBot - Asistente de Taller**\n\n"
+        f"El modelo de Machine Learning sugiere que la falla se asocia con: **{diagnostico_ml}**.\n\n"
+        f"📖 *Procedimiento según el manual de taller*:\n"
+        f"{contexto_manual}\n\n"
+        f"¿Necesitas que te ayude a buscar otra falla o procedimiento técnico en el manual?"
     )
 
 

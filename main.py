@@ -1,4 +1,14 @@
 import os
+
+# Cargar variables de entorno desde archivo .env local si existe (evita configurar variables en terminal)
+if os.path.exists(".env"):
+    with open(".env", "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#"):
+                key, val = line.split("=", 1)
+                os.environ[key.strip()] = val.strip().strip('"').strip("'")
+
 from fastapi import FastAPI
 import uvicorn
 from src.interfaces.api.v1.router import api_router

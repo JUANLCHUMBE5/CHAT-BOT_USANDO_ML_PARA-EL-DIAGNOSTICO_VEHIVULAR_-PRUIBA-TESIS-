@@ -43,17 +43,17 @@ class GestorDiagnostico:
     def generar_respuesta_conversacional(self, pregunta: str, diagnostico_ml: str, contexto_manual: str) -> str:
         """Envía el prompt aumentado con RAG y clasificación ML a la API de Gemini (o fallback local)"""
         prompt_sistema = f"""
-        Eres 'CarBot', un asistente mecánico inteligente de un taller en Carabayllo.
+        Eres 'CarBot', un asistente técnico de soporte inteligente para el mecánico del taller en Carabayllo.
         
         Información del sistema de IA:
-        - Nuestro modelo de Machine Learning predijo que el cliente tiene una falla de: {diagnostico_ml}
+        - Nuestro modelo de Machine Learning predijo que la falla se asocia con: {diagnostico_ml}
         - Información del manual técnico de taller recuperada (RAG):
         {contexto_manual}
         
-        Pregunta del cliente: "{pregunta}"
+        Consulta técnica del mecánico: "{pregunta}"
         
-        Redacta una respuesta amigable, concisa y muy útil para WhatsApp de máximo 2 párrafos. Usa emojis.
-        Explícale qué falla detectó nuestro sistema ML y los pasos del manual técnico.
+        Redacta una respuesta concisa, técnica y muy útil para el mecánico a través de WhatsApp, de máximo 2 párrafos. Usa emojis.
+        Confírmale el diagnóstico sugerido por el modelo ML y detalla los pasos de reparación específicos del manual de taller.
         Respuesta:
         """
         
@@ -74,16 +74,16 @@ class GestorDiagnostico:
         # Fallback local conversacional si no hay clave API
         if "No se encontró" in contexto_manual:
             return (
-                f"🚗 ¡Hola! Soy CarBot, asistente del taller. "
-                f"Nuestro modelo de Machine Learning sugiere que la falla se asocia con: **{diagnostico_ml}**.\n\n"
-                f"Actualmente no dispongo del paso a paso exacto para este caso en mis manuales. "
-                f"¿Deseas programar una visita física al taller de Carabayllo para revisarlo con un mecánico?"
+                f"🛠️ **CarBot - Asistente de Taller**\n\n"
+                f"El modelo de Machine Learning sugiere que la falla se asocia con: **{diagnostico_ml}**.\n\n"
+                f"⚠️ *Nota:* No se encontró un procedimiento específico en el manual de taller para esta consulta. "
+                f"Te sugiero revisar componentes asociados o realizar pruebas visuales directas en el vehículo."
             )
             
         return (
-            f"🛠️ ¡Hola! Soy CarBot, tu asistente del taller. "
-            f"Basado en tu consulta, identificamos una posible falla de: **{diagnostico_ml}**.\n\n"
-            f"Según nuestro manual oficial técnico de taller, aquí tienes las instrucciones de solución:\n"
-            f"{contexto_manual}\n"
-            f"¿Te gustaría agendar una cita para que un técnico realice esta reparación por ti?"
+            f"🛠️ **CarBot - Asistente de Taller**\n\n"
+            f"El modelo de Machine Learning sugiere que la falla se asocia con: **{diagnostico_ml}**.\n\n"
+            f"📖 *Procedimiento según el manual de taller*:\n"
+            f"{contexto_manual}\n\n"
+            f"¿Necesitas que te ayude a buscar otra falla o procedimiento técnico en el manual?"
         )

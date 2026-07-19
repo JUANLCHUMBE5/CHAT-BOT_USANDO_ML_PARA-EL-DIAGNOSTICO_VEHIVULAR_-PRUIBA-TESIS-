@@ -86,5 +86,7 @@ def enviar_mensaje_whatsapp(numero_destino: str, texto: str):
     try:
         res = requests.post(url, headers=headers, json=data, timeout=5)
         print(f"📤 Respuesta enviada a {numero_destino}. Meta Status Code: {res.status_code}")
+        if res.status_code != 200:
+            print(f"❌ Detalle del error de Meta: {res.text}")
     except Exception as e:
         print(f"❌ Falló el envío del mensaje vía HTTP a Meta API: {e}")
