@@ -66,3 +66,7 @@ Este balotario contiene las respuestas exactas y académicas para las preguntas 
   > * **Scikit-Learn**: Biblioteca para procesar los síntomas con **TF-IDF Vectorizer** y el clasificador **Random Forest**.
   > * **Ngrok**: Para crear el túnel de comunicación HTTPS seguro y local requerido por Meta.
   > * **WhatsApp Business Cloud API**: Como canal conversacional de entrada y salida de datos."*
+
+### 10. ¿Cuál es el estado de desarrollo actual de su sistema y por qué no realiza una demostración en vivo de las pruebas ahora?
+* **Respuesta del Tesista**:
+  > *"En esta fase de Tesis I, el objetivo del proyecto es la sustentación y aprobación del diseño metodológico y tecnológico de la investigación. Para demostrar la viabilidad, hemos construido un prototipo funcional a nivel alfa que valida de forma exitosa el flujo de comunicación entre FastAPI, Ngrok y la API de WhatsApp. Sin embargo, el experimento completo con los 60 registros del taller, la recolección del dataset de campo definitivo y la evaluación estadística final son el alcance delimitado para la asignatura de Tesis II en el décimo ciclo, una vez que contemos con la aprobación formal de este jurado."*
