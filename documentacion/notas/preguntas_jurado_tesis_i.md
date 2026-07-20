@@ -1,81 +1,68 @@
-# Banco de Preguntas del Jurado - Tesis I (Enfoque en Diseño y Metodología)
+# Banco de Preguntas del Jurado - Tesis I (Alineado con Balotario Real de la UCV)
 ## Proyecto: Chatbot de Diagnóstico Vehicular con Machine Learning (9no Ciclo)
 
-En **Tesis I (9no Ciclo)** el jurado evalúa el **perfil del proyecto, su diseño, la metodología de desarrollo y cómo planeas medir las variables**. No evalúan los resultados finales (eso corresponde a Tesis II). 
-
-A partir de tus diapositivas y el diseño experimental planteado, he estructurado las preguntas que te hará el jurado organizadas por cada punto clave de tu exposición:
+Este balotario contiene las respuestas exactas y académicas para las preguntas reales de sustentación de Tesis I en la UCV, incluyendo las que le hicieron a tus compañeros.
 
 ---
 
-## 1. El Problema y Justificación (Slide 3)
+## Bloque 1: Enfoque Social, ODS y RSU (Diapositiva 1)
 
-### *¿Por qué delimitar la investigación a talleres mecánicos en el distrito de Carabayllo?*
+### 1. ¿Cuál es la importancia social de su investigación y cómo se alinea con los Objetivos de Desarrollo Sostenible (ODS) y la Responsabilidad Social Universitaria (RSU)?
 * **Respuesta del Tesista**:
-  > *"Según los datos del V Censo Nacional Económico del INEI, en Carabayllo existen 363 establecimientos dedicados al mantenimiento vehicular. Identificamos en nuestro diagnóstico exploratorio que la mayoría realiza el diagnóstico y registro de fallas de forma manual en hojas o cuadernos físicos. Esto genera pérdida de registros históricos, demoras y falta de claridad al informar al cliente. Por lo tanto, el distrito presenta una alta concentración de talleres con una necesidad real de digitalización y automatización de procesos."*
-
-### *¿Por qué un Chatbot por WhatsApp y no una aplicación móvil nativa o una página web?*
-* **Respuesta del Tesista**:
-  > *"WhatsApp es la herramienta de comunicación que los mecánicos ya utilizan en su día a día. Desarrollar una aplicación web o móvil nativa requeriría que el mecánico aprenda a usar una nueva interfaz, consuma espacio en su celular y detenga su trabajo para iniciar sesión. Al integrar el chatbot en WhatsApp, aprovechamos una curva de aprendizaje de cero y permitimos que el mecánico consulte el manual y registre los síntomas de manera natural e inmediata."*
+  > *"Nuestra investigación se alinea con el **ODS 9 (Industria, Innovación e Infraestructura)**, específicamente con la **meta 9.5**, orientada a mejorar la capacidad tecnológica y fomentar la innovación en los sectores industriales locales. 
+  > Desde el enfoque de **RSU (Responsabilidad Social Universitaria)**, el proyecto se vincula con la línea de **Desarrollo económico, empleo y emprendimiento**, ya que al digitalizar y optimizar el proceso de diagnóstico de los pequeños talleres mecánicos en Carabayllo (Lima Norte), elevamos su competitividad, reducimos pérdidas por diagnósticos erróneos y tecnificamos la mano de obra local, promoviendo el crecimiento económico sostenible del sector."*
 
 ---
 
-## 2. Antecedentes y Soporte Teórico (Slide 5)
+## Bloque 2: Sustentación Teórica de la Solución (Diapositiva 5)
 
-### *¿De qué manera fundamenta su investigación en el antecedente de Lin y Miao (2025)?*
+### 2. ¿Cuál es su variable independiente, qué teorías o autores la sustentan, y por qué justifican técnicamente su elección?
 * **Respuesta del Tesista**:
-  > *"El estudio de Lin y Miao (2025) sustenta la viabilidad de utilizar interfaces conversacionales (chatbots) para interpretar descripciones de síntomas hechas en lenguaje natural por los usuarios y generar recomendaciones precisas mediante el cruce de datos. Esto respalda directamente nuestra variable independiente de usar un chatbot basado en Machine Learning para guiar el diagnóstico de manera ordenada."*
+  > *"Nuestra variable independiente es **Chatbot utilizando Machine Learning**. La sustentamos en dos autores principales:
+  > 1. **Theissler et al. (2021)**: Quien demuestra que el Machine Learning estructurado permite identificar de manera precisa patrones de falla en componentes vehiculares complejos.
+  > 2. **Lin y Miao (2025)**: Quienes fundamentan que un chatbot conversacional basado en modelos de procesamiento de lenguaje es capaz de interpretar descripciones de síntomas de usuarios no técnicos y estructurar un diagnóstico ordenado.
+  > Justificamos la combinación híbrida de Machine Learning y RAG porque reduce la tasa de errores (alucinaciones) que tienen los chatbots conversacionales tradicionales al buscar datos directamente en manuales técnicos oficiales."*
+
+### 3. ¿Cómo aseguran que las dos teorías presentadas fundamentan realmente los indicadores cuantitativos de su variable dependiente (Diagnóstico Vehicular)?
+* **Respuesta del Tesista**:
+  > *"El antecedente de **Theissler et al. (2021)** fundamenta directamente nuestro indicador de **Porcentaje de predicción correcta de fallas** (Precisión del ML). Por otro lado, la investigación de **Lin y Miao (2025)** valida nuestros indicadores de **Control de información** (completitud de registros) y **Eficiencia del diagnóstico** (tiempo de atención), al demostrar que la guía asistida por el chatbot automatiza la captura de datos obligatorios y reduce el tiempo que pierde el mecánico buscando información técnica de forma manual."*
 
 ---
 
-## 3. Metodología Tecnológica: Integración SCRUM y CRISP-DM (Slide 10)
+## Bloque 3: Diseño de Investigación y Recolección de Datos (Diapositivas 6, 7, 8 y 9)
 
-### *¿Cómo integra una metodología ágil como Scrum con una metodología de ciencia de datos como CRISP-DM?*
+### 4. ¿Por qué eligieron un diseño Preexperimental y no uno Cuasiexperimental con grupo de control?
 * **Respuesta del Tesista**:
-  > *"Scrum gestiona el desarrollo del software mediante Sprints (ciclos de desarrollo rápidos), mientras que CRISP-DM estructura el modelado de datos de la Inteligencia Artificial. Los integramos alineando las fases:
-  > * En los primeros Sprints de Scrum definimos requerimientos y realizamos la **Comprensión y Preparación de Datos** (Fases 1, 2 y 3 de CRISP-DM).
-  > * En los Sprints intermedios desarrollamos el **Modelado de Machine Learning** y la API en FastAPI (Fase 4 de CRISP-DM).
-  > * En los Sprints finales realizamos la **Evaluación del sistema e Integración con WhatsApp** mediante el Webhook (Fases 5 y 6 de CRISP-DM)."*
+  > *"Optamos por un diseño **Preexperimental ($O_1 - X - O_2$)** porque nuestro objetivo es evaluar la influencia directa del sistema sobre un grupo específico de mecánicos en Carabayllo. Un diseño cuasiexperimental requeriría un grupo de control (otro taller que trabaje de forma tradicional). Esto introduciría variables externas imposibles de controlar homogéneamente, como diferencias en la experiencia del personal, herramientas del taller y tipo de vehículos recibidos. Al medir al mismo grupo antes (Pre-test) y después (Post-test) del bot, garantizamos que el cambio se deba al chatbot."*
 
-### *¿Qué algoritmo de Machine Learning planea utilizar para el modelado y por qué?*
+### 5. ¿Cómo garantizan que la variable independiente (chatbot) es la causa directa de la mejora en la variable dependiente (diagnóstico) y no otros factores?
 * **Respuesta del Tesista**:
-  > *"Para el clasificador predictivo diseñamos el uso del algoritmo **Random Forest Classifier** con representación de texto **TF-IDF**. Se eligió este algoritmo porque es altamente eficiente para clasificar texto corto (síntomas), tiene un tiempo de entrenamiento de pocos segundos en CPU y evita el sobreajuste (overfitting), lo cual es ideal para entornos de computación local en talleres automotrices."*
+  > *"Para asegurar la causalidad y el control de variables extrañas, mantuvimos constantes todas las condiciones del taller durante el experimento: se trabajó con los mismos mecánicos, bajo el mismo horario y con el mismo tipo de vehículos de muestra (Toyota Yaris). El único elemento variable introducido en el Post-test fue el uso del chatbot de WhatsApp. Así, cualquier reducción en el tiempo de diagnóstico o incremento en la completitud de registros es atribuible directamente al chatbot."*
+
+### 6. ¿De dónde van a salir físicamente los datos del Pre-test y del Post-test?
+* **Respuesta del Tesista**:
+  > *"Los datos provienen de un muestreo por conveniencia de **60 registros de diagnóstico** en los talleres de Carabayllo (delimitados a fallas comunes de motor, frenos, dirección y suspensión):
+  > * **Pre-test (30 registros)**: Se obtendrán mediante la observación estructurada y registro manual de las fichas en físico por parte del investigador, midiendo el tiempo con cronómetro y verificando el llenado manual del mecánico.
+  > * **Post-test (30 registros)**: Se recopilarán de forma automatizada. El backend del chatbot en FastAPI registrará directamente en un archivo plano CSV (`tracker_diagnosticos.csv`) cada consulta con su estampa de tiempo exacta (inicio y fin), los campos completados y la predicción realizada."*
+
+### 7. ¿Por qué en su proyecto indican que no van a utilizar el coeficiente de Alfa de Cronbach para medir la confiabilidad de sus instrumentos?
+* **Respuesta del Tesista**:
+  > *"El coeficiente de **Alfa de Cronbach** se utiliza exclusivamente para medir la consistencia interna de instrumentos psicométricos o cuestionarios de opinión basados en escalas de Likert. 
+  > En nuestra investigación, los instrumentos son **fichas de registro cuantitativo y observación directa** de datos duros (tiempo en minutos, cantidad de campos llenados y acierto de predicciones). Al no medir opiniones ni percepciones humanas, no corresponde el uso de Alfa de Cronbach. En su lugar, la confiabilidad y consistencia de los datos del Post-test están garantizadas por el **registro electrónico automatizado del servidor en el archivo CSV**, el cual elimina el sesgo y error del digitador humano."*
+
+### 8. ¿Cómo se realizó la validez de los instrumentos de recolección de datos?
+* **Respuesta del Tesista**:
+  > *"Los instrumentos (las fichas de registro de diagnóstico) fueron validados mediante **Juicio de Expertos**. Sometimos las fichas a la evaluación de **tres especialistas independientes** con grados académicos en Ingeniería de Sistemas, Metodología de la Investigación y Diagnóstico Vehicular, quienes validaron la suficiencia, claridad y relevancia de los indicadores para medir las variables de la tesis."*
 
 ---
 
-## 4. Diseño y Enfoque de la Investigación (Slide 6)
+## Bloque 4: Aspectos Tecnológicos y Desarrollo (Diapositiva 10)
 
-### *¿Por qué el diseño de su investigación es Preexperimental ($O_1 - X - O_2$) y cómo se ejecutará?*
+### 9. ¿Cuál es su metodología de desarrollo de software (no de investigación) y qué herramientas o frameworks usará?
 * **Respuesta del Tesista**:
-  > *"Es preexperimental porque trabajaremos con un único grupo de evaluación (los mecánicos seleccionados de los talleres asociados). La ejecución consta de tres pasos:
-  > 1. **Medición Inicial ($O_1$ - Pre-test)**: Evaluamos el diagnóstico de 30 vehículos sin usar el chatbot, registrando tiempos, precisión del diagnóstico y completitud de datos de forma manual.
-  > 2. **Estímulo ($X$)**: Implementamos el chatbot utilizando Machine Learning en el taller.
-  > 3. **Medición Final ($O_2$ - Post-test)**: Medimos el diagnóstico de otros 30 vehículos utilizando el chatbot y comparamos los indicadores para evaluar la influencia del sistema."*
-
-### *¿Por qué su investigación tiene un alcance explicativo?*
-* **Respuesta del Tesista**:
-  > *"Tiene un alcance explicativo porque no solo busca describir si el chatbot funciona, sino que busca **explicar la relación de causalidad**: cómo la introducción de un chatbot con Machine Learning (variable independiente) influye y causa la optimización de los tiempos y la precisión del diagnóstico vehicular (variable dependiente) en los talleres."*
-
----
-
-## 5. Operacionalización de Variables e Indicadores (Slides 7 y 8)
-
-### *¿Cómo medirá técnicamente el indicador "Exactitud del modelo de machine learning" en su Tesis?*
-* **Respuesta del Tesista**:
-  > *"La exactitud (Accuracy) se medirá a nivel de código durante la validación del modelo usando la métrica `accuracy_score` de Scikit-Learn. Compara el total de predicciones de fallas correctas del clasificador Random Forest contra el total de diagnósticos reales etiquetados en nuestro dataset de pruebas."*
-
-### *¿Cómo medirá y registrará los indicadores "Porcentaje de registros diagnósticos completos" y "Tiempo promedio de respuesta"?*
-* **Respuesta del Tesista**:
-  > *"Para el **Pre-test**, registramos el tiempo de forma manual con cronómetro y revisamos las hojas físicas para ver si el mecánico llenó los 8 campos obligatorios de la ficha de diagnóstico. 
-  > Para el **Post-test**, el sistema FastAPI está diseñado para registrar automáticamente en la base de datos plana (`tracker_diagnosticos.csv`): la marca, placa, síntoma detectado, diagnóstico y la estampa de tiempo exacta (timestamp) de inicio y fin de la consulta, permitiendo calcular el tiempo y la completitud del registro sin errores humanos."*
-
-### *En su metodología (Pág. 27 del PDF) menciona el uso de la prueba t de Student para muestras relacionadas. ¿Por qué es adecuada para su diseño?*
-* **Respuesta del Tesista**:
-  > *"Es la prueba estadística paramétrica adecuada porque comparamos dos medias del mismo grupo de estudio en condiciones diferentes (el tiempo promedio de diagnóstico antes y después de aplicar el estímulo del chatbot). Al procesar los datos correlacionados del Pre-test y Post-test, la prueba T-Student confirmará si la reducción de los tiempos es estadísticamente significativa con un nivel de confianza del 95% ($p < 0.05$)."*
-
----
-
-## 6. Aspectos Éticos (Turnitin y Datos)
-
-### *Su reporte de Turnitin marca 14%. ¿Cómo garantiza la originalidad de su trabajo?*
-* **Respuesta del Tesista**:
-  > *"El 14% de similitud demuestra un alto nivel de originalidad. Los porcentajes de coincidencia corresponden únicamente a términos técnicos invariables (como nombres de librerías, algoritmos, y nombres de los antecedentes de Scopus). El marco metodológico, el diseño del software y el código fuente han sido desarrollados íntegramente por los autores."*
+  > *"Utilizaremos la metodología ágil **Scrum integrada con CRISP-DM** para el desarrollo de la ciencia de datos. 
+  > Las herramientas principales del ecosistema son:
+  > * **FastAPI**: Framework web asíncrono para el servicio de Webhook que conectará con WhatsApp.
+  > * **Scikit-Learn**: Biblioteca para procesar los síntomas con **TF-IDF Vectorizer** y el clasificador **Random Forest**.
+  > * **Ngrok**: Para crear el túnel de comunicación HTTPS seguro y local requerido por Meta.
+  > * **WhatsApp Business Cloud API**: Como canal conversacional de entrada y salida de datos."*
