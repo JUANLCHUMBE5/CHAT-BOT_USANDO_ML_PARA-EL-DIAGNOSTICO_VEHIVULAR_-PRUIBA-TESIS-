@@ -1,7 +1,7 @@
-# Balotario Completo de 30 Preguntas del Jurado - Tesis I (9no Ciclo)
+# Balotario Completo de 31 Preguntas del Jurado - Tesis I (9no Ciclo)
 ## Proyecto: Chatbot de Diagnóstico Vehicular con Machine Learning - UCV
 
-Este documento contiene un banco completo de **30 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
+Este documento contiene un banco completo de **31 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
 
 ---
 
@@ -144,6 +144,13 @@ Este documento contiene un banco completo de **30 preguntas y respuestas** dise�
 ### 28. ¿Cómo asegura que los manuales de taller indexados por el motor RAG sean confiables y precisos?
 * **Respuesta**:
   > *"El motor RAG no busca información libre en internet. Solo busca en el archivo `manual_procedimientos.txt` que contiene manuales técnicos oficiales de taller (Haynes/Chilton) previamente curados por nosotros. Esto garantiza que la instrucción recuperada sea 100% verídica y específica para el vehículo."*
+
+### 31. ¿El chatbot de diagnóstico vehicular funciona únicamente con el motor RAG o incluye otros modelos de inteligencia artificial?
+* **Respuesta**:
+  > *"El chatbot no es únicamente un sistema RAG; implementa una **Arquitectura Híbrida** constituida por tres capas de modelos y algoritmos que interactúan de forma secuencial:
+  > 1. **Modelo de Clasificación (Machine Learning Supervisado)**: Un modelo de clasificación de bosque aleatorio (Random Forest Classifier) entrenado localmente con un dataset de síntomas comunes de talleres de Carabayllo, encargado de predecir la categoría física de la falla.
+  > 2. **Modelo de Recuperación (RAG)**: Un algoritmo de similitud de coseno sobre vectores TF-IDF encargado de buscar la coincidencia exacta de la falla predicha dentro de los manuales técnicos locales.
+  > 3. **Modelo Generativo (LLM)**: Un modelo de lenguaje grande (Gemini) utilizado únicamente en la capa final como interfaz explicativa conversacional, garantizando que el reporte se genere sin alucinaciones y respetando la información del manual técnico recuperado."*
 
 ---
 
