@@ -1,7 +1,7 @@
-# Balotario Completo de 33 Preguntas del Jurado - Tesis I (9no Ciclo)
+# Balotario Completo de 34 Preguntas del Jurado - Tesis I (9no Ciclo)
 ## Proyecto: Chatbot de Diagnóstico Vehicular con Machine Learning - UCV
 
-Este documento contiene un banco completo de **33 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
+Este documento contiene un banco completo de **34 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
 
 ---
 
@@ -167,6 +167,21 @@ Este documento contiene un banco completo de **33 preguntas y respuestas** dise�
   > 3. **La parte conversacional con LLMs**: Se basa en **Lin y Miao (2025) [Referencia 21]**, quienes sustentaron el diagnóstico asistido mediante modelos de lenguaje grandes e interfaces conversacionales.
   > 4. **Explicabilidad diagnóstica**: Se fundamenta en **Bao et al. (2025) [Referencia 15]**, quienes utilizaron LLMs y características de fallas para generar diagnósticos con explicación transparente y razonamiento lógico.
   > Por lo tanto, nuestra arquitectura se basa rigurosamente en el estado del arte de la ingeniería de sistemas automotrices."*
+
+### 34. ¿Por qué eligieron específicamente estos 3 módulos (ML Supervisado, RAG y LLM) y no otros modelos alternativos?
+* **Respuesta**:
+  > *"Justificamos la selección de cada módulo frente a alternativas tecnológicas comunes por criterios de precisión, costo computacional y veracidad:
+  > 
+  > 1. **Módulo de Clasificación Predictiva (ML Supervisado - Random Forest + TF-IDF) vs Reglas Rígidas o Deep Learning**:
+  >    * *Frente a Reglas Rígidas (if-else / SQL)*: Las reglas fallan cuando el usuario escribe con faltas de ortografía o sinónimos. El modelo supervisado generaliza sobre patrones lingüísticos.
+  >    * *Frente a Deep Learning (CNN / LSTM)*: Deep Learning requiere cientos de miles de datos y GPUs costosas. Random Forest es un modelo de ensamble robusto respaldado por **Theissler et al. (2021) [Ref 6]** que alcanza más de 95% de precisión en datasets de síntomas pequeños/medianos sin sobreajuste.
+  > 
+  > 2. **Módulo de Recuperación Semántica (RAG - TF-IDF + Coseno) vs Fine-Tuning o Búsqueda Directa en LLMs**:
+  >    * *Frente a Fine-Tuning de LLMs*: Re-entrenar un LLM es costoso, lento y queda desactualizado al agregar nuevos manuales. RAG indexa dinámicamente nuevos manuales sin re-entrenar.
+  >    * *Frente a LLMs Directos*: Los LLMs comerciales solos sufren de **alucinación** (inventan torques o procedimientos). RAG obliga al sistema a basar la respuesta estrictamente en el manual técnico del taller, respaldado por **Zhang et al. (2025) [Ref 22]**.
+  > 
+  > 3. **Módulo Generativo Explicativo (LLM / IA Explicable - XAI) vs Plantillas Fijas**:
+  >    * *Frente a Plantillas de Texto Fijas*: Las plantillas son frías y rígidas. El LLM actúa como capa de **IA Explicable (Explainable AI - XAI)**, respaldado por **Bao et al. (2025) [Ref 15]** y **Vega et al. (2025) [Ref 25]**, adaptando el reporte técnico a un diálogo conversacional amigable para WhatsApp."*
 
 ---
 
