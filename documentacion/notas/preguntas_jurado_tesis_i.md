@@ -1,7 +1,7 @@
-# Balotario Completo de 31 Preguntas del Jurado - Tesis I (9no Ciclo)
+# Balotario Completo de 32 Preguntas del Jurado - Tesis I (9no Ciclo)
 ## Proyecto: Chatbot de Diagnóstico Vehicular con Machine Learning - UCV
 
-Este documento contiene un banco completo de **31 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
+Este documento contiene un banco completo de **32 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
 
 ---
 
@@ -151,6 +151,15 @@ Este documento contiene un banco completo de **31 preguntas y respuestas** dise�
   > 1. **Modelo de Clasificación (Machine Learning Supervisado)**: Un modelo de clasificación de bosque aleatorio (Random Forest Classifier) entrenado localmente con un dataset de síntomas comunes de talleres de Carabayllo, encargado de predecir la categoría física de la falla.
   > 2. **Modelo de Recuperación (RAG)**: Un algoritmo de similitud de coseno sobre vectores TF-IDF encargado de buscar la coincidencia exacta de la falla predicha dentro de los manuales técnicos locales.
   > 3. **Modelo Generativo (LLM)**: Un modelo de lenguaje grande (Gemini) utilizado únicamente en la capa final como interfaz explicativa conversacional, garantizando que el reporte se genere sin alucinaciones y respetando la información del manual técnico recuperado."*
+
+### 32. ¿En qué antecedentes específicos de su marco teórico se fundamenta el diseño de esta arquitectura híbrida (ML + RAG + LLM)?
+* **Respuesta**:
+  > *"Esta arquitectura híbrida no es una invención improvisada; está directamente respaldada por investigaciones científicas indexadas que forman parte de nuestros antecedentes en el informe de tesis:
+  > 1. **La combinación ML + RAG**: Se fundamenta en **Mahale, Kolhar y More (2025) [Referencia 23]**, quienes propusieron un diagnóstico vehicular automatizado mediante aprendizaje automático híbrido combinado con RAG multi-paso.
+  > 2. **El uso de RAG para recuperación técnica**: Se respalda en **Zhang et al. (2025) [Referencia 22]**, quienes aplicaron generación aumentada por recuperación (RAG) para extraer información precisa de fallas en bases de datos automotrices especializadas.
+  > 3. **La parte conversacional con LLMs**: Se basa en **Lin y Miao (2025) [Referencia 21]**, quienes sustentaron el diagnóstico asistido mediante modelos de lenguaje grandes e interfaces conversacionales.
+  > 4. **Explicabilidad diagnóstica**: Se fundamenta en **Bao et al. (2025) [Referencia 15]**, quienes utilizaron LLMs y características de fallas para generar diagnósticos con explicación transparente y razonamiento lógico.
+  > Por lo tanto, nuestra arquitectura se basa rigurosamente en el estado del arte de la ingeniería de sistemas automotrices."*
 
 ---
 
