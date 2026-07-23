@@ -1,7 +1,7 @@
-# Balotario Completo de 32 Preguntas del Jurado - Tesis I (9no Ciclo)
+# Balotario Completo de 33 Preguntas del Jurado - Tesis I (9no Ciclo)
 ## Proyecto: Chatbot de Diagnóstico Vehicular con Machine Learning - UCV
 
-Este documento contiene un banco completo de **32 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
+Este documento contiene un banco completo de **33 preguntas y respuestas** diseñado específicamente para tu sustentación de Tesis I. Las preguntas están agrupadas por las secciones oficiales de tu exposición y tu informe metodológico y tecnológico.
 
 ---
 
@@ -74,6 +74,13 @@ Este documento contiene un banco completo de **32 preguntas y respuestas** dise�
 ### 15. ¿Cómo se medirá el "Tiempo promedio de respuesta diagnóstica"?
 * **Respuesta**:
   > *"Se medirá en minutos. Calcula la diferencia temporal entre el momento en que el mecánico ingresa el primer síntoma y el momento en que el sistema le entrega la solución del manual técnico de taller. En el Post-test, esto se registrará mediante timestamps automáticos en el servidor."*
+
+### 33. ¿Cómo se vinculan exactamente las dimensiones de la Variable Independiente (Causa) con las dimensiones de la Variable Dependiente (Efecto / Problema a Solucionar)?
+* **Respuesta**:
+  > *"Nuestra investigación plantea una relación directa de causa-efecto entre las dimensiones de ambas variables:
+  > 1. **Registro de síntomas** (V.I.) $\rightarrow$ **Control de información diagnóstica** (V.D.): Al capturar los síntomas de manera estructurada mediante WhatsApp, aseguramos que todas las fichas de diagnóstico se almacenen con sus 8 campos obligatorios completos, solucionando la pérdida de datos en cuadernos físicos.
+  > 2. **Procesamiento de datos** (V.I.) $\rightarrow$ **Eficiencia del diagnóstico** (V.D.): Al automatizar la limpieza y tokenización del mensaje del usuario en milisegundos, reducimos drásticamente el tiempo promedio de respuesta diagnóstica en comparación con la búsqueda manual en manuales de taller físicos.
+  > 3. **Modelo predictivo** (V.I.) $\rightarrow$ **Predicción de fallas vehiculares** (V.D.): El clasificador supervisado (Random Forest) elimina la subjetividad humana del diagnóstico empírico, incrementando científicamente el porcentaje de fallas correctamente identificadas."*
 
 ---
 
