@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chatbot-diagnostico-vehicular"
+version = "1.0.0"
+description = "Chatbot utilizando machine learning para el diagnóstico vehicular en talleres mecánicos de Carabayllo"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Juan Joel Leon Chumbe" },
+    { name = "Luisa Leonor Poma Cataño" }
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "scikit-learn>=1.2.0",
+    "joblib>=1.2.0",
+    "scipy>=1.10.0",
+    "SpeechRecognition>=3.10.0",
+    "sounddevice>=0.4.6",
+    "soundfile>=0.12.1",
+    "fastapi>=0.95.0",
+    "uvicorn>=0.21.0",
+    "pydantic>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.0",
+    "black>=23.3.0",
+    "flake8>=6.0.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
