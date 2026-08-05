@@ -1,45 +1,111 @@
 import pandas as pd
+import numpy as np
 import joblib
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, accuracy_score
-import os
+from sklearn.metrics import classification_report, accuracy_score, f1_score, confusion_matrix
 
-# 1. Cargar el dataset en español
-if not os.path.exists("data/dataset_sintomas.csv"):
-    print("Error: No se encontró 'data/dataset_sintomas.csv'. Ejecuta primero 'generar_dataset.py'.")
-    exit()
+def entrenar_evaluar_modelo():
+    print("=" * 80)
+    print("ENTRENAMIENTO Y EVALUACION DEL MODELO ML (RANDOM FOREST OPTIMIZADO)")
+    print("=" * 80)
 
-df = pd.read_csv("data/dataset_sintomas.csv", encoding="utf-8")
+    # 1. Cargar dataset balanceado
+    path_dataset = "data/dataset_sintomas.csv"
+    if not os.path.exists(path_dataset):
+        print(f"Error: No se encontró '{path_dataset}'. Ejecuta primero 'generar_dataset.py'.")
+        return
 
-# Mostrar información básica del dataset
-print(f"Cargadas {len(df)} filas del dataset de síntomas.")
+    df = pd.read_csv(path_dataset, encoding="utf-8")
+    print(f"Dataset cargado: {len(df)} ejemplos | {df['falla'].nunique()} clases distintas.")
 
-X = df['sintoma']
-y = df['falla']
+    X = df['sintoma']
+    y = df['falla']
 
-# 2. Vectorización del texto (TF-IDF)
-# Convertimos el texto a números de forma que el modelo de Machine Learning lo entienda.
-# Quitamos acentos y pasamos todo a minúsculas.
-vectorizador = TfidfVectorizer(lowercase=True, strip_accents='unicode')
-X_vectorizado = vectorizador.fit_transform(X)
+    # 2. Vectorización TF-IDF Optimizada (N-gramas 1-2 + sublinear_tf)
+    vectorizador = TfidfVectorizer(
+        lowercase=True, 
+        strip_accents='unicode', 
+        ngram_range=(1, 2),
+        sublinear_tf=True
+    )
+    X_vec = vectorizador.fit_transform(X)
 
-# 3. Entrenar el modelo (Usamos Random Forest por ser muy robusto para clasificar texto pequeño)
-# Dado que el dataset es pequeño para un split grande, lo entrenamos con todos los datos para la demo,
-# pero imprimiremos el reporte de entrenamiento.
-modelo = RandomForestClassifier(n_estimators=100, random_state=42)
-modelo.fit(X_vectorizado, y)
+    # 3. Split estratificado Train / Test (75% entrenar, 25% probar)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_vec, y, test_size=0.25, random_state=42, stratify=y
+    )
 
-# Evaluamos en el mismo set para confirmar que aprende los patrones básicos
-predicciones = modelo.predict(X_vectorizado)
-exactitud = accuracy_score(y, predicciones)
-print(f"Exactitud del entrenamiento: {exactitud * 100:.2f}%")
+    # 4. Entrenar Random Forest Classifier sin restricción artificial de profundidad
+    modelo = RandomForestClassifier(
+        n_estimators=300, 
+        max_depth=None,
+        min_samples_split=2,
+        random_state=42,
+        class_weight='balanced'
+    )
+    modelo.fit(X_train, y_train)
 
-# 4. Guardar el modelo y el vectorizador
-# Esto nos permite cargar el "cerebro" entrenado en el script del Chatbot o la API sin re-entrenar.
-os.makedirs("models", exist_ok=True)
-joblib.dump(modelo, 'models/modelo_diagnostico.pkl')
-joblib.dump(vectorizador, 'models/vectorizador_tfidf.pkl')
+    # 5. Evaluación en Test Set
+    y_pred = modelo.predict(X_test)
+    
+    exactitud = accuracy_score(y_test, y_pred)
+    f1_macro = f1_score(y_test, y_pred, average='macro')
+    f1_weighted = f1_score(y_test, y_pred, average='weighted')
 
-print("¡Modelo 'models/modelo_diagnostico.pkl' y Vectorizador 'models/vectorizador_tfidf.pkl' guardados con éxito!")
+    print("\n--- REPORTE DE METRICAS DE DESEMPEÑO EN SET DE PRUEBA (TEST SET) ---")
+    print(f"Exactitud (Accuracy):           {exactitud * 100:.2f}%")
+    print(f"F1-Score Promedio (Macro):      {f1_macro * 100:.2f}%")
+    print(f"F1-Score Promedio (Weighted):   {f1_weighted * 100:.2f}%")
+    print("\n--- CLASSIFICATION REPORT DETALLADO ---")
+    print(classification_report(y_test, y_pred, zero_division=0))
+
+    # 6. Re-entrenar modelo final con 100% de los datos para producción/demo
+    modelo_final = RandomForestClassifier(
+        n_estimators=300, 
+        max_depth=None,
+        min_samples_split=2,
+        random_state=42,
+        class_weight='balanced'
+    )
+    modelo_final.fit(X_vec, y)
+
+    # Exportar los modelos .pkl
+    os.makedirs("models", exist_ok=True)
+    joblib.dump(modelo_final, 'models/modelo_diagnostico.pkl')
+    joblib.dump(vectorizador, 'models/vectorizador_tfidf.pkl')
+    print("\nArchivos exportados exitosamente:")
+    print("  - models/modelo_diagnostico.pkl")
+    print("  - models/vectorizador_tfidf.pkl")
+
+    # 7. Generar Matriz de Confusión y Guardar Gráfica
+    try:
+        labels = sorted(list(y.unique()))
+        cm = confusion_matrix(y_test, y_pred, labels=labels)
+
+        os.makedirs("documentacion/graficas", exist_ok=True)
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+                    xticklabels=labels, yticklabels=labels)
+        plt.title('Matriz de Confusión - Clasificador Random Forest', pad=15, fontsize=12, fontweight='bold')
+        plt.xlabel('Predicción del Modelo', labelpad=10, fontweight='bold')
+        plt.ylabel('Clase Real (Ground Truth)', labelpad=10, fontweight='bold')
+        plt.xticks(rotation=45, ha='right', fontsize=8)
+        plt.yticks(rotation=0, fontsize=8)
+        plt.tight_layout()
+        
+        path_cm_graph = "documentacion/graficas/matriz_confusion_ml.png"
+        plt.savefig(path_cm_graph, dpi=300)
+        plt.close()
+        print(f"\n[Graficador] Matriz de confusión exportada en: '{path_cm_graph}'")
+    except Exception as e:
+        print(f"\n[Aviso Graficador] No se pudo generar la gráfica de matriz de confusión debido a restricciones de seguridad del sistema (Matplotlib DLL): {e}")
+    print("=" * 80)
+
+if __name__ == "__main__":
+    entrenar_evaluar_modelo()

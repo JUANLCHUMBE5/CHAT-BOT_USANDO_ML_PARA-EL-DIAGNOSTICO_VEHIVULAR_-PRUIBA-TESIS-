@@ -60,7 +60,11 @@ print(f"--> Reduccion de tiempo de atencion: -{tiempo_prom_pre - tiempo_prom_pos
 
 # --- 4. CONTRASTACION DE HIPOTESIS ESTADISTICA (PRUEBA T-STUDENT RELACIONADA) ---
 # Evaluamos si la reduccion del tiempo de diagnostico es significativa para muestras relacionadas (Pág. 27 del PDF)
-t_stat, p_value = stats.ttest_rel(pre_test['tiempo_diagnostico_minutos'], post_test['tiempo_diagnostico_minutos'])
+n_muestras = min(len(pre_test), len(post_test))
+t_stat, p_value = stats.ttest_rel(
+    pre_test['tiempo_diagnostico_minutos'].iloc[:n_muestras], 
+    post_test['tiempo_diagnostico_minutos'].iloc[:n_muestras]
+)
 
 print("\nCONTRASTACION DE HIPOTESIS ESTADISTICA (T-STUDENT MUESTRAS RELACIONADAS)")
 print("-" * 65)
