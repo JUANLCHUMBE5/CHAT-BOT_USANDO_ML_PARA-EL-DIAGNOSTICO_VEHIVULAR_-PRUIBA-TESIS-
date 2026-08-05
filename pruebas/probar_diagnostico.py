@@ -1,13 +1,15 @@
 import joblib
 import os
 
-# Cargar el modelo y el vectorizador
-if not os.path.exists("modelo_diagnostico.pkl") or not os.path.exists("vectorizador_tfidf.pkl"):
+path_modelo = "models/modelo_diagnostico.pkl" if os.path.exists("models/modelo_diagnostico.pkl") else "modelo_diagnostico.pkl"
+path_vectorizador = "models/vectorizador_tfidf.pkl" if os.path.exists("models/vectorizador_tfidf.pkl") else "vectorizador_tfidf.pkl"
+
+if not os.path.exists(path_modelo) or not os.path.exists(path_vectorizador):
     print("Error: No se encontraron los archivos del modelo. Ejecuta primero 'generar_dataset.py' y 'entrenar_modelo.py'.")
     exit()
 
-modelo = joblib.load('modelo_diagnostico.pkl')
-vectorizador = joblib.load('vectorizador_tfidf.pkl')
+modelo = joblib.load(path_modelo)
+vectorizador = joblib.load(path_vectorizador)
 
 print("=" * 60)
 print("SISTEMA DE PREDICCIÓN DE DIAGNÓSTICO VEHICULAR (PROTOTIPO ML)")
@@ -16,7 +18,10 @@ print("Escribe 'salir' para finalizar.")
 print("=" * 60)
 
 while True:
-    entrada = input("\nIntroduce síntoma: ")
+    try:
+        entrada = input("\nIntroduce síntoma: ")
+    except EOFError:
+        break
     if entrada.lower() == 'salir':
         break
     
