@@ -165,7 +165,7 @@ El sistema ha sido evaluado bajo metodologías estrictas de prueba:
 
 * **Proyecto de Tesis para Titulación Profesional**
 * **Autores / Tesistas:**
-  * 🧑‍💻 **León, Juan**
+  * 🧑‍💻 **Leon, Juan**
   * 🧑‍💻 **Poma, Cataño**
 * **Área:** Inteligencia Artificial Aplicada, Procesamiento de Lenguaje Natural (NLP) e Ingeniería Automotriz / Mecatrónica.
 
