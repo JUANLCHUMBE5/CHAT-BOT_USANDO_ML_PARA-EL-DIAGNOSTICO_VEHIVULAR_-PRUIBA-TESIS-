@@ -60,7 +60,7 @@ Tienes dos caminos principales:
 
 1. **La vía Oficial (WhatsApp Cloud API de Meta)**:
    * **Pros**: 100% legal, estable, sin riesgo de baneo, gratis hasta 1,000 conversaciones al mes.
-   * **Contras**: Requiere registrarse en [Meta for Developers](https://developers.facebook.com/) y configurar una cuenta comercial.
+   * **Contras**: Requiere registrarse en [Meta for Developers](![![alt text](image-1.png)](image.png)) y configurar una cuenta comercial.
    * **Recomendado para producción.**
 2. **La vía No Oficial (APIs basadas en WhatsApp Web)**:
    * **Pros**: Usas tu propio número personal al escanear un código QR. Es más rápido de configurar.
