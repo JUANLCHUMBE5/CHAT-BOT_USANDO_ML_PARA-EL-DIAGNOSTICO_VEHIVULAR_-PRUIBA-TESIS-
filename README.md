@@ -161,6 +161,11 @@ El sistema ha sido evaluado bajo metodologías estrictas de prueba:
 
 ---
 
-## 👥 Créditos e Investigación Academic
+## 👥 Créditos y Autores de la Tesis
+
 * **Proyecto de Tesis para Titulación Profesional**
-* **Área:** Inteligencia Artificial Aplicada, Procesamiento de Lenguaje Natural (NLP) e Ingeniería Mecatrónica / Automotriz.
+* **Autores / Tesistas:**
+  * 🧑‍💻 **León, Juan**
+  * 🧑‍💻 **Poma, Cataño**
+* **Área:** Inteligencia Artificial Aplicada, Procesamiento de Lenguaje Natural (NLP) e Ingeniería Automotriz / Mecatrónica.
+
