@@ -43,8 +43,14 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# --- Archivos de Auditoría de Antigravity ---
+# --- Archivos de Auditoría y Agentes ---
 .gemini/
+.agents/
+ORIGINAL_REQUEST.md
+TEST_INFRA.md
+TEST_READY.md
+*.log
+
 
 # --- Modelos Binarios de ML (>100MB) ---
 models/modelo_diagnostico.pkl
