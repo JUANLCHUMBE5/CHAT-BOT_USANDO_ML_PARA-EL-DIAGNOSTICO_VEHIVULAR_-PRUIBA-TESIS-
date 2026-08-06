@@ -67,14 +67,14 @@ Preprocesa el texto ingresado por el usuario traduciendo expresiones coloquiales
 CHAT_BOT_MACHINLEARNING/
 ├── data/                         # Datasets de síntomas y códigos OBD-II (CSV)
 │   ├── dataset_sintomas.csv
-│   └── tracker_diagnosticos.csv
+│   └── tracker_diagnosticos.example.csv  # Plantilla; el tracker real es local
 ├── documentacion/                # Documentación académica de tesis, arquitectura y gráficas
 │   ├── arquitectura_modular/
 │   └── graficas/
 ├── manuales_taller/              # Base de conocimientos para el motor RAG
 │   └── manual_procedimientos.txt
 ├── models/                       # Binarios de modelos entrenados (.pkl)
-├── pruebas/                      # Suite de pruebas unitarias, de integración y estrés
+├── tests/                        # Suite Pytest unitaria, de integración y concurrencia
 ├── src/                          # Código fuente modular
 │   ├── config.py                 # Variables de entorno y ajustes del sistema
 │   ├── core/                     # Lógica principal (Gestor Híbrido, Jerga, Sesiones)
@@ -122,11 +122,9 @@ pip install .
 ```
 
 ### 4. Configurar variables de entorno
-Crea un archivo `.env` en la raíz del proyecto:
-```env
-GEMINI_API_KEY=tu_api_key_de_google_gemini
-PORT=8000
-HOST=0.0.0.0
+Copia `.env.example` como `.env` y reemplaza todos los valores de ejemplo. El archivo `.env` es local y nunca debe subirse a GitHub.
+```bash
+cp .env.example .env
 ```
 
 ### 5. Entrenar el modelo de Machine Learning
@@ -148,6 +146,11 @@ Accede a la documentación interactiva en: [http://localhost:8000/docs](http://l
 Para probar la precisión del diagnóstico sin levantar la API Web:
 ```bash
 python probar_diagnostico.py
+```
+
+Para ejecutar la suite automatizada:
+```bash
+pytest -q
 ```
 
 ---
