@@ -28,19 +28,48 @@ class AppSettings(BaseModel):
     environment: str = os.getenv("ENVIRONMENT", "development")
     port: int = int(os.getenv("PORT", 8000))
     ngrok_domain: str = os.getenv("NGROK_DOMAIN", "")
-    
+
     # API Keys & Credentials
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
     twilio_account_sid: str = os.getenv("TWILIO_ACCOUNT_SID", "")
     twilio_auth_token: str = os.getenv("TWILIO_AUTH_TOKEN", "")
     verify_token: str = os.getenv("VERIFY_TOKEN", "MI_TOKEN_DE_VERIFICACION_SEC_123")
+    meta_verify_token: str = os.getenv("META_VERIFY_TOKEN", os.getenv("VERIFY_TOKEN", "MI_TOKEN_DE_VERIFICACION_SEC_123"))
+    meta_app_secret: str = os.getenv("META_APP_SECRET", "")
+    jwt_secret_key: str = os.getenv("JWT_SECRET_KEY", "super_secret_carbot_key_ucv_2026_carabayllo")
     token_whatsapp: str = os.getenv("TOKEN_WHATSAPP", "")
     telefono_id: str = os.getenv("TELEFONO_ID", "")
+
+    privacy_secret_key: str = os.getenv("PRIVACY_SECRET_KEY", "carbot_privacy_hmac_secret_key_2026")
+
+    # Credenciales de autenticación JWT (configurables vía .env)
+    auth_username: str = os.getenv("AUTH_USERNAME", "admin")
+    auth_password: str = os.getenv("AUTH_PASSWORD", "carbot2026")
 
     # Sub-configuraciones
     paths: PathConfig = Field(default_factory=PathConfig)
     diagnostic: DiagnosticConfig = Field(default_factory=DiagnosticConfig)
+
+    def validar_seguridad_produccion(self):
+        """Valida que no existan secretos predeterminados ni faltantes si el entorno es producción."""
+        if self.environment.lower() in ("production", "prod"):
+            errores = []
+            if not self.meta_app_secret or "change-me" in self.meta_app_secret.lower():
+                errores.append("META_APP_SECRET es obligatorio en producción y no puede ser el valor por defecto.")
+            if not self.jwt_secret_key or self.jwt_secret_key == "super_secret_carbot_key_ucv_2026_carabayllo":
+                errores.append("JWT_SECRET_KEY utiliza el valor predeterminado inseguro.")
+            if self.auth_username == "admin" or self.auth_password == "carbot2026":
+                errores.append("AUTH_USERNAME y AUTH_PASSWORD utilizan credenciales predeterminadas.")
+            if not self.twilio_auth_token:
+                errores.append("TWILIO_AUTH_TOKEN no está configurado.")
+            if not self.privacy_secret_key or self.privacy_secret_key == "carbot_privacy_hmac_secret_key_2026":
+                errores.append("PRIVACY_SECRET_KEY utiliza la clave predeterminada.")
+
+            if errores:
+                msg = "Fallo de validación de seguridad en PRODUCCIÓN:\n - " + "\n - ".join(errores)
+                raise RuntimeError(msg)
+
 
     # Aliases de compatibilidad directa (Mayúsculas y Minúsculas)
     @property
@@ -111,9 +140,37 @@ class AppSettings(BaseModel):
     def TWILIO_AUTH_TOKEN(self) -> str:
         return self.twilio_auth_token
 
+    @TWILIO_AUTH_TOKEN.setter
+    def TWILIO_AUTH_TOKEN(self, value: str):
+        self.twilio_auth_token = value
+
     @property
     def VERIFY_TOKEN(self) -> str:
         return self.verify_token
+
+    @property
+    def META_VERIFY_TOKEN(self) -> str:
+        return self.meta_verify_token
+
+    @META_VERIFY_TOKEN.setter
+    def META_VERIFY_TOKEN(self, value: str):
+        self.meta_verify_token = value
+
+    @property
+    def META_APP_SECRET(self) -> str:
+        return self.meta_app_secret
+
+    @META_APP_SECRET.setter
+    def META_APP_SECRET(self, value: str):
+        self.meta_app_secret = value
+
+    @property
+    def JWT_SECRET_KEY(self) -> str:
+        return self.jwt_secret_key
+
+    @JWT_SECRET_KEY.setter
+    def JWT_SECRET_KEY(self, value: str):
+        self.jwt_secret_key = value
 
     @property
     def TOKEN_WHATSAPP(self) -> str:
@@ -122,6 +179,15 @@ class AppSettings(BaseModel):
     @property
     def TELEFONO_ID(self) -> str:
         return self.telefono_id
+
+    @property
+    def PRIVACY_SECRET_KEY(self) -> str:
+        return self.privacy_secret_key
+
+    @PRIVACY_SECRET_KEY.setter
+    def PRIVACY_SECRET_KEY(self, value: str):
+        self.privacy_secret_key = value
+
 
 # Instancia global de configuración centralizada
 settings = AppSettings()

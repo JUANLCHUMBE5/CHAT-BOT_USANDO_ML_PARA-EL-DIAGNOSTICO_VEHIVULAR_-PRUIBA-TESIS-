@@ -1,36 +1,49 @@
 import time
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends, Request
 from fastapi.concurrency import run_in_threadpool
 from src.interfaces.api.v1.schemas import ConsultaDiagnostico, ResultadoDiagnostico
-from src.core.gestor_diagnostico import GestorDiagnostico
+from src.core.gestor_diagnostico import GestorDiagnostico, ResultadoDiagnostico as DTOInternal
+from src.core.security import verificar_jwt_token, anonimizar_identificador
 from src.core.logger import logger
 from src.config import settings
 
-# Crear enrutador FastAPI para diagnóstico general
+from src.limiter import limiter
+
 router = APIRouter()
 
-# Instanciar el orquestador core de diagnóstico
-gestor = GestorDiagnostico()
+def obtener_gestor_diagnostico(request: Request) -> GestorDiagnostico:
+    """Dependency Provider para reutilizar el GestorDiagnostico en app.state o instanciarlo."""
+    if hasattr(request.app.state, "gestor_diagnostico"):
+        return request.app.state.gestor_diagnostico
+    return GestorDiagnostico()
 
-@router.post("/analizar", response_model=ResultadoDiagnostico)
-async def analizar_sintoma(consulta: ConsultaDiagnostico):
+@router.post("/analizar", response_model=ResultadoDiagnostico, summary="Analizar síntoma vehicular (Requiere Token JWT de 2 horas)")
+@limiter.limit("60/minute")
+async def analizar_sintoma(
+    request: Request,
+    consulta: ConsultaDiagnostico,
+    token_payload: dict = Depends(verificar_jwt_token),
+    gestor: GestorDiagnostico = Depends(obtener_gestor_diagnostico)
+):
     """
-    Endpoint general para analizar un síntoma mecánico y obtener un diagnóstico híbrido.
-    Ideal para ser consumido por una aplicación web externa, app móvil o panel de administración.
+    Endpoint seguro con Autenticación JWT para analizar síntomas vehiculares.
+    Valida la validez de 2 horas del token y elimina condiciones de carrera.
     """
     if not consulta.sintoma.strip():
         raise HTTPException(status_code=400, detail="El síntoma no puede estar vacío.")
 
     t_inicio = time.time()
     try:
-        logger.info(f"Procesando petición HTTP REST para síntoma: {consulta.sintoma}")
-        
+        placa_anonima = anonimizar_identificador(consulta.placa or "REST-API")
+        logger.info(f"Procesando petición HTTP REST autenticada para Placa: {placa_anonima}")
+
         marca_modelo = f"{consulta.marca} {consulta.modelo}".strip()
-        placa_val = consulta.placa or "REST-API"
-        respuesta_explicativa = await run_in_threadpool(
+
+        # Ejecutar en threadpool de forma thread-safe retornando DTO inmutable
+        dto_resultado: DTOInternal = await run_in_threadpool(
             gestor.procesar_consulta_texto,
             consulta.sintoma, 
-            placa=placa_val, 
+            placa=consulta.placa or "REST-API",
             marca_modelo=marca_modelo,
             session_id=consulta.session_id
         )
@@ -38,23 +51,17 @@ async def analizar_sintoma(consulta: ConsultaDiagnostico):
         t_final = time.time()
         elapsed_ms = (t_final - t_inicio) * 1000
 
-        diagnostico_ml = getattr(gestor, 'ultimo_diagnostico_ml', "Diagnóstico Vehicular")
-        confianza = getattr(gestor, 'ultima_confianza', 1.0)
-        contexto_manual = getattr(gestor, 'ultimo_contexto_manual', "")
-
-        confianza_pct = round(confianza * 100, 2)
-        requiere_revision = confianza < settings.diagnostic.confidence_threshold
+        confianza_pct = round(dto_resultado.confianza_ml * 100, 2)
 
         return ResultadoDiagnostico(
             sintoma=consulta.sintoma,
-            falla_predicha=diagnostico_ml,
+            falla_predicha=dto_resultado.diagnostico_ml,
             confianza=confianza_pct,
-            requiere_revision_humana=requiere_revision,
-            procedimiento_tecnico=contexto_manual,
-            respuesta_explicativa=respuesta_explicativa,
+            requiere_revision_humana=dto_resultado.requiere_revision_humana,
+            procedimiento_tecnico=dto_resultado.contexto_manual,
+            respuesta_explicativa=dto_resultado.respuesta_texto,
             tiempo_respuesta_ms=round(elapsed_ms, 2)
         )
     except Exception as e:
         logger.error(f"Error al procesar diagnóstico en API REST: {e}")
         raise HTTPException(status_code=500, detail="Error interno al procesar el diagnóstico.")
-
